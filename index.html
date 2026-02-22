@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vault — Personal Finance Tracker</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3C!-- bottom note --%3E%3Crect x='4' y='34' width='52' height='24' rx='4' fill='%2322543d' transform='rotate(-8 32 46)'/%3E%3Crect x='7' y='36' width='46' height='20' rx='3' fill='%2327a063' transform='rotate(-8 32 46)'/%3E%3Cellipse cx='32' cy='46' rx='5' ry='5' fill='%231a7a4a' transform='rotate(-8 32 46)'/%3E%3Cellipse cx='32' cy='46' rx='3.5' ry='3.5' fill='%2332c87a' transform='rotate(-8 32 46)'/%3E%3C!-- middle note --%3E%3Crect x='4' y='30' width='52' height='24' rx='4' fill='%231e4d38' transform='rotate(0 32 42)'/%3E%3Crect x='7' y='32' width='46' height='20' rx='3' fill='%2324a05a' transform='rotate(0 32 42)'/%3E%3Cellipse cx='32' cy='42' rx='5' ry='5' fill='%23177a42'/%3E%3Cellipse cx='32' cy='42' rx='3.5' ry='3.5' fill='%2330c070'/%3E%3C!-- top note --%3E%3Crect x='4' y='26' width='52' height='24' rx='4' fill='%23164030' transform='rotate(7 32 38)'/%3E%3Crect x='7' y='28' width='46' height='20' rx='3' fill='%231e9050' transform='rotate(7 32 38)'/%3E%3Cellipse cx='32' cy='38' rx='5' ry='5' fill='%23126635' transform='rotate(7 32 38)'/%3E%3Cellipse cx='32' cy='38' rx='3.5' ry='3.5' fill='%2328b862' transform='rotate(7 32 38)'/%3E%3C!-- band --%3E%3Crect x='26' y='22' width='12' height='24' rx='2' fill='%23c9a84c' opacity='0.92'/%3E%3Crect x='27' y='23' width='10' height='22' rx='1.5' fill='%23f0d080' opacity='0.5'/%3E%3C!-- dollar sign on band --%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='Georgia,serif' font-size='11' font-weight='bold' fill='%23a07820' opacity='0.9'%3E%24%3C/text%3E%3C/svg%3E" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='34' width='52' height='24' rx='4' fill='%2322543d' transform='rotate(-8 32 46)'/%3E%3Crect x='7' y='36' width='46' height='20' rx='3' fill='%2327a063' transform='rotate(-8 32 46)'/%3E%3Cellipse cx='32' cy='46' rx='5' ry='5' fill='%231a7a4a' transform='rotate(-8 32 46)'/%3E%3Cellipse cx='32' cy='46' rx='3.5' ry='3.5' fill='%2332c87a' transform='rotate(-8 32 46)'/%3E%3Crect x='4' y='30' width='52' height='24' rx='4' fill='%231e4d38' transform='rotate(0 32 42)'/%3E%3Crect x='7' y='32' width='46' height='20' rx='3' fill='%2324a05a' transform='rotate(0 32 42)'/%3E%3Cellipse cx='32' cy='42' rx='5' ry='5' fill='%23177a42'/%3E%3Cellipse cx='32' cy='42' rx='3.5' ry='3.5' fill='%2330c070'/%3E%3Crect x='4' y='26' width='52' height='24' rx='4' fill='%23164030' transform='rotate(7 32 38)'/%3E%3Crect x='7' y='28' width='46' height='20' rx='3' fill='%231e9050' transform='rotate(7 32 38)'/%3E%3Cellipse cx='32' cy='38' rx='5' ry='5' fill='%23126635' transform='rotate(7 32 38)'/%3E%3Cellipse cx='32' cy='38' rx='3.5' ry='3.5' fill='%2328b862' transform='rotate(7 32 38)'/%3E%3Crect x='26' y='22' width='12' height='24' rx='2' fill='%23c9a84c' opacity='0.92'/%3E%3Crect x='27' y='23' width='10' height='22' rx='1.5' fill='%23f0d080' opacity='0.5'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='Georgia,serif' font-size='11' font-weight='bold' fill='%23a07820' opacity='0.9'%3E%24%3C/text%3E%3C/svg%3E" />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
 :root {
@@ -12,6 +12,7 @@
   --border:rgba(255,255,255,0.07); --gold:#c9a84c; --gold-light:#f0d080;
   --gold-dim:rgba(201,168,76,0.15); --teal:#4ccfb0; --rose:#e05c7a;
   --text:#e8e8e0; --muted:#6b7a8d; --accent:#1e2d3d;
+  --sidebar-w: 220px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -20,8 +21,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 body::after{content:'';position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;}
 
 /* ── ONBOARDING ── */
-#onboarding{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;}
-.ob-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.5rem;width:440px;max-width:95vw;text-align:center;animation:fadeUp .6s ease both;}
+#onboarding{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.ob-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.5rem;width:440px;max-width:100%;text-align:center;animation:fadeUp .6s ease both;}
 .ob-logo{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);letter-spacing:.1em;}
 .ob-tagline{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.25em;text-transform:uppercase;margin-bottom:2rem;}
 .ob-title{font-size:1rem;font-weight:500;margin-bottom:1.5rem;color:var(--text);}
@@ -34,170 +35,218 @@ body::after{content:'';position:fixed;top:-200px;right:-200px;width:600px;height
 .ob-btn:hover{background:var(--gold-light);}
 
 /* ── LAYOUT ── */
-.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;position:relative;z-index:1;}
+.shell{display:flex;min-height:100vh;position:relative;z-index:1;}
 
 /* ── SIDEBAR ── */
-.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:2rem 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
-.logo{padding:0 1.75rem 2rem;border-bottom:1px solid var(--border);}
-.logo-mark{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);letter-spacing:.08em;line-height:1;}
-.logo-sub{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.22em;text-transform:uppercase;margin-top:.2rem;}
-.nav{padding:1.5rem 0;flex:1;}
-.nav-label{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:.3em;text-transform:uppercase;padding:0 1.75rem;margin-bottom:.6rem;}
-.nav-item{display:flex;align-items:center;gap:.85rem;padding:.65rem 1.75rem;cursor:pointer;transition:all .2s;color:var(--muted);font-size:.84rem;font-weight:400;border-left:2px solid transparent;}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:2rem 0;position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;overflow-y:auto;z-index:200;transition:transform .3s ease;}
+.logo{padding:0 1.5rem 1.75rem;border-bottom:1px solid var(--border);}
+.logo-mark{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--gold);letter-spacing:.08em;line-height:1;}
+.logo-sub{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:.22em;text-transform:uppercase;margin-top:.2rem;}
+.nav{padding:1.25rem 0;flex:1;}
+.nav-label{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--muted);letter-spacing:.3em;text-transform:uppercase;padding:0 1.5rem;margin-bottom:.5rem;}
+.nav-item{display:flex;align-items:center;gap:.75rem;padding:.6rem 1.5rem;cursor:pointer;transition:all .2s;color:var(--muted);font-size:.82rem;font-weight:400;border-left:2px solid transparent;}
 .nav-item:hover{color:var(--text);background:rgba(255,255,255,.02);}
 .nav-item.active{color:var(--gold);border-left-color:var(--gold);background:var(--gold-dim);}
-.nav-section{margin-bottom:1.5rem;}
-.nav-icon{width:16px;height:16px;opacity:.7;flex-shrink:0;}
+.nav-section{margin-bottom:1.25rem;}
+.nav-icon{width:15px;height:15px;opacity:.7;flex-shrink:0;}
 .nav-item.active .nav-icon{opacity:1;}
-.sidebar-footer{padding:1.25rem 1.75rem;border-top:1px solid var(--border);}
-.user-chip{display:flex;align-items:center;gap:.75rem;}
-.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#8a5c10);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:#fff;flex-shrink:0;cursor:pointer;}
-.user-info{overflow:hidden;flex:1;}
-.user-name{font-size:.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.user-plan{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;}
-.reset-btn{font-size:.6rem;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'Outfit',sans-serif;padding:0;margin-top:.2rem;display:block;}
+.sidebar-footer{padding:1.1rem 1.5rem;border-top:1px solid var(--border);}
+.user-chip{display:flex;align-items:center;gap:.65rem;}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#8a5c10);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.85rem;color:#fff;flex-shrink:0;cursor:pointer;}
+.user-info{overflow:hidden;flex:1;min-width:0;}
+.user-name{font-size:.8rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.user-plan{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;}
+.reset-btn{font-size:.58rem;color:var(--muted);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'Outfit',sans-serif;padding:0;margin-top:.15rem;display:block;}
 .reset-btn:hover{color:var(--rose);}
+
+/* ── MOBILE TOP BAR ── */
+.topbar{display:none;align-items:center;justify-content:space-between;padding:.85rem 1rem;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:150;}
+.topbar-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);}
+.hamburger{background:none;border:none;cursor:pointer;color:var(--muted);padding:.25rem;display:flex;flex-direction:column;gap:4px;}
+.hamburger span{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:190;}
 
 /* ── VIEWS ── */
 .view{display:none;}
 .view.active{display:block;}
 
 /* ── MAIN ── */
-.main{padding:2.5rem 2.5rem 4rem;max-width:1100px;}
-.page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;animation:fadeUp .6s ease both;}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;line-height:1.1;}
+.main-wrap{margin-left:var(--sidebar-w);flex:1;min-width:0;}
+.main{padding:2rem 2rem 4rem;max-width:1060px;width:100%;}
+.page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;animation:fadeUp .6s ease both;gap:1rem;flex-wrap:wrap;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;line-height:1.1;}
 .page-title span{color:var(--gold);}
-.page-date{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--muted);letter-spacing:.15em;margin-top:.2rem;}
-.header-actions{display:flex;gap:.75rem;align-items:center;}
-.btn{padding:.6rem 1.25rem;border-radius:6px;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s;letter-spacing:.03em;border:none;}
+.page-date{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.15em;margin-top:.2rem;}
+.header-actions{display:flex;gap:.6rem;align-items:center;flex-shrink:0;}
+.btn{padding:.55rem 1.1rem;border-radius:6px;font-family:'Outfit',sans-serif;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .2s;letter-spacing:.03em;border:none;}
 .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 .btn-primary{background:var(--gold);color:#0a0a0a;font-weight:600;}
 .btn-primary:hover{background:var(--gold-light);}
-.btn-danger{background:transparent;color:var(--rose);border:1px solid rgba(224,92,122,.3);font-size:.7rem;padding:.4rem .75rem;}
+.btn-danger{background:transparent;color:var(--rose);border:1px solid rgba(224,92,122,.3);font-size:.68rem;padding:.35rem .65rem;}
 .btn-danger:hover{background:rgba(224,92,122,.1);}
 
 /* ── STAT CARDS ── */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem;}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.5rem;position:relative;overflow:hidden;transition:border-color .3s,transform .2s;animation:fadeUp .6s ease both;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.25rem;position:relative;overflow:hidden;transition:border-color .3s,transform .2s;animation:fadeUp .6s ease both;}
 .stat-card:nth-child(1){animation-delay:.05s;} .stat-card:nth-child(2){animation-delay:.1s;} .stat-card:nth-child(3){animation-delay:.15s;} .stat-card:nth-child(4){animation-delay:.2s;}
 .stat-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-2px);}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent-color,var(--gold));opacity:.6;}
 .stat-card.teal{--accent-color:var(--teal);} .stat-card.rose{--accent-color:var(--rose);} .stat-card.neutral{--accent-color:var(--muted);}
-.stat-label{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem;}
-.stat-value{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;line-height:1;}
-.stat-value .currency{font-size:1rem;color:var(--muted);vertical-align:super;margin-right:2px;}
-.stat-change{display:flex;align-items:center;gap:.3rem;margin-top:.55rem;font-size:.7rem;color:var(--muted);}
+.stat-label{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.45rem;}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:300;line-height:1;}
+.stat-value .currency{font-size:.9rem;color:var(--muted);vertical-align:super;margin-right:2px;}
+.stat-change{display:flex;align-items:center;gap:.3rem;margin-top:.45rem;font-size:.67rem;color:var(--muted);}
 .stat-change.up{color:var(--teal);} .stat-change.down{color:var(--rose);}
 
 /* ── MAIN GRID ── */
-.main-grid{display:grid;grid-template-columns:1fr 320px;gap:1.25rem;margin-bottom:1.25rem;}
-.chart-card,.breakdown-card,.tx-card,.goals-card,.all-tx-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;animation:fadeUp .6s ease both;}
-.chart-card{animation-delay:.25s;} .breakdown-card{animation-delay:.3s;}
-.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;}
-.card-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;}
-.card-meta{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em;}
-.period-tabs{display:flex;gap:.25rem;background:var(--surface);padding:.25rem;border-radius:6px;}
-.period-tab{padding:.3rem .7rem;border-radius:4px;font-size:.7rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s;border:none;background:transparent;font-family:'Outfit',sans-serif;}
+.main-grid{display:grid;grid-template-columns:1fr 280px;gap:1rem;margin-bottom:1rem;align-items:start;}
+.chart-card,.breakdown-card,.tx-card,.goals-card,.all-tx-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.35rem;animation:fadeUp .6s ease both;}
+.chart-card{animation-delay:.25s;min-width:0;} .breakdown-card{animation-delay:.3s;}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;}
+.card-meta{font-family:'DM Mono',monospace;font-size:.57rem;color:var(--muted);letter-spacing:.1em;}
+.period-tabs{display:flex;gap:.2rem;background:var(--surface);padding:.2rem;border-radius:6px;flex-shrink:0;}
+.period-tab{padding:.28rem .65rem;border-radius:4px;font-size:.67rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s;border:none;background:transparent;font-family:'Outfit',sans-serif;}
 .period-tab.active{background:var(--card2);color:var(--gold);}
-.chart-wrap{position:relative;height:200px;}
-canvas{display:block;}
+
+/* Chart container — fixed height, no overflow */
+.chart-wrap{position:relative;height:180px;width:100%;}
+.chart-wrap canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;}
 
 /* ── DONUT ── */
-.donut-wrap{position:relative;margin:.75rem auto;width:140px;height:140px;}
+.donut-wrap{position:relative;margin:.6rem auto;width:130px;height:130px;}
 .donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.donut-amount{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;line-height:1;}
-.donut-label{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--muted);letter-spacing:.12em;margin-top:.2rem;}
-.legend{margin-top:.75rem;display:flex;flex-direction:column;gap:.5rem;}
-.legend-item{display:flex;align-items:center;justify-content:space-between;font-size:.77rem;}
-.legend-left{display:flex;align-items:center;gap:.55rem;}
-.legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-.legend-val{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);}
+.donut-amount{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;line-height:1;}
+.donut-label{font-family:'DM Mono',monospace;font-size:.47rem;color:var(--muted);letter-spacing:.12em;margin-top:.2rem;}
+.legend{margin-top:.65rem;display:flex;flex-direction:column;gap:.42rem;}
+.legend-item{display:flex;align-items:center;justify-content:space-between;font-size:.74rem;}
+.legend-left{display:flex;align-items:center;gap:.5rem;}
+.legend-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0;}
+.legend-val{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--muted);}
 
 /* ── BOTTOM ── */
-.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 
 /* ── TRANSACTIONS ── */
-.tx-list{display:flex;flex-direction:column;gap:0;margin-top:.25rem;}
-.tx-item{display:flex;align-items:center;gap:.9rem;padding:.7rem .5rem;border-bottom:1px solid var(--border);cursor:default;transition:background .15s;border-radius:6px;}
+.tx-list{display:flex;flex-direction:column;gap:0;margin-top:.2rem;}
+.tx-item{display:flex;align-items:center;gap:.8rem;padding:.65rem .4rem;border-bottom:1px solid var(--border);cursor:default;transition:background .15s;border-radius:6px;}
 .tx-item:hover{background:rgba(255,255,255,.025);}
 .tx-item:last-child{border-bottom:none;}
-.tx-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.tx-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
 .tx-info{flex:1;min-width:0;}
-.tx-name{font-size:.81rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tx-meta{font-family:'DM Mono',monospace;font-size:.57rem;color:var(--muted);letter-spacing:.06em;margin-top:.12rem;}
-.tx-right{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;flex-shrink:0;}
-.tx-amount{font-family:'DM Mono',monospace;font-size:.82rem;font-weight:500;}
+.tx-name{font-size:.79rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tx-meta{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:.06em;margin-top:.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tx-right{display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;flex-shrink:0;}
+.tx-amount{font-family:'DM Mono',monospace;font-size:.79rem;font-weight:500;}
 .tx-amount.credit{color:var(--teal);} .tx-amount.debit{color:var(--text);}
-.tx-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;line-height:1;padding:.1rem .3rem;border-radius:3px;opacity:0;transition:opacity .15s,color .15s;}
+.tx-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;line-height:1;padding:.1rem .3rem;border-radius:3px;opacity:0;transition:opacity .15s,color .15s;}
 .tx-item:hover .tx-del{opacity:1;}
 .tx-del:hover{color:var(--rose);}
 
 /* ── GOALS ── */
-.goal-item{margin-bottom:1.1rem;position:relative;}
+.goal-item{margin-bottom:1rem;position:relative;}
 .goal-item:last-child{margin-bottom:0;}
-.goal-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.45rem;}
-.goal-name{font-size:.82rem;font-weight:500;}
-.goal-pct{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);}
-.progress-track{height:4px;background:var(--accent);border-radius:99px;overflow:hidden;}
+.goal-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem;gap:.5rem;}
+.goal-name{font-size:.8rem;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.goal-pct{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);flex-shrink:0;}
+.progress-track{height:3px;background:var(--accent);border-radius:99px;overflow:hidden;}
 .progress-fill{height:100%;border-radius:99px;transition:width 1.5s cubic-bezier(.16,1,.3,1);}
-.goal-sub{display:flex;justify-content:space-between;margin-top:.35rem;font-family:'DM Mono',monospace;font-size:.57rem;color:var(--muted);}
-.goal-actions{display:flex;gap:.4rem;margin-top:.5rem;}
-.goal-mini-btn{font-size:.62rem;padding:.25rem .6rem;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;transition:all .15s;}
+.goal-sub{display:flex;justify-content:space-between;margin-top:.3rem;font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);gap:.5rem;}
+.goal-sub span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.goal-actions{display:flex;gap:.35rem;margin-top:.4rem;}
+.goal-mini-btn{font-size:.6rem;padding:.22rem .55rem;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;transition:all .15s;}
 .goal-mini-btn:hover{border-color:var(--gold);color:var(--gold);}
 .goal-mini-btn.del:hover{border-color:var(--rose);color:var(--rose);}
 
 /* ── ALL TRANSACTIONS VIEW ── */
 .all-tx-card{animation-delay:.2s;}
-.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
-.filter-select{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.4rem .75rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;cursor:pointer;}
+.filter-bar{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.filter-select{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.38rem .7rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.73rem;outline:none;cursor:pointer;}
 .filter-select:focus{border-color:var(--gold);}
-.search-input{flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.4rem .75rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.75rem;outline:none;}
+.search-input{flex:1;min-width:130px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.38rem .7rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.73rem;outline:none;}
 .search-input:focus{border-color:var(--gold);}
-.tx-table{width:100%;border-collapse:collapse;font-size:.8rem;}
-.tx-table th{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--border);}
-.tx-table td{padding:.65rem .6rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+.tx-table{width:100%;border-collapse:collapse;font-size:.78rem;}
+.tx-table th{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;text-align:left;padding:.48rem .55rem;border-bottom:1px solid var(--border);}
+.tx-table td{padding:.6rem .55rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
 .tx-table tr:last-child td{border-bottom:none;}
 .tx-table tr:hover td{background:rgba(255,255,255,.02);}
-.badge{display:inline-block;padding:.15rem .55rem;border-radius:4px;font-size:.62rem;font-weight:500;}
+.badge{display:inline-block;padding:.14rem .5rem;border-radius:4px;font-size:.6rem;font-weight:500;}
 
 /* ── EMPTY STATE ── */
-.empty{text-align:center;padding:3rem 1rem;}
-.empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.4;}
-.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--muted);margin-bottom:.4rem;}
-.empty-sub{font-size:.78rem;color:var(--muted);opacity:.7;}
+.empty{text-align:center;padding:2.5rem 1rem;}
+.empty-icon{font-size:2.2rem;margin-bottom:.65rem;opacity:.4;}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--muted);margin-bottom:.35rem;}
+.empty-sub{font-size:.75rem;color:var(--muted);opacity:.7;}
 
 /* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:1rem;}
 .modal-overlay.open{opacity:1;pointer-events:all;}
-.modal{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:2rem;width:440px;max-width:95vw;transform:translateY(24px);transition:transform .3s cubic-bezier(.16,1,.3,1);max-height:90vh;overflow-y:auto;}
+.modal{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;width:440px;max-width:100%;transform:translateY(24px);transition:transform .3s cubic-bezier(.16,1,.3,1);max-height:90vh;overflow-y:auto;}
 .modal-overlay.open .modal{transform:translateY(0);}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:1.5rem;}
-.form-group{margin-bottom:1rem;}
-.form-label{display:block;font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.38rem;}
-.form-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;margin-bottom:1.35rem;}
+.form-group{margin-bottom:.9rem;}
+.form-label{display:block;font-family:'DM Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;}
+.form-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.6rem .85rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.84rem;outline:none;transition:border-color .2s;}
 .form-input:focus{border-color:var(--gold);}
 select.form-input option{background:var(--card2);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
-.modal-actions{display:flex;gap:.75rem;margin-top:1.5rem;justify-content:flex-end;}
-
-/* ── DEPOSIT-TO-GOAL MODAL ── */
-#depositModal .modal{width:360px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+.modal-actions{display:flex;gap:.65rem;margin-top:1.35rem;justify-content:flex-end;}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--card2);border:1px solid var(--gold);border-radius:10px;padding:.85rem 1.2rem;font-size:.8rem;color:var(--gold);z-index:999;transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:.6rem;}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--card2);border:1px solid var(--gold);border-radius:10px;padding:.8rem 1.1rem;font-size:.78rem;color:var(--gold);z-index:999;transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:.55rem;max-width:calc(100vw - 3rem);}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.error{border-color:var(--rose);color:var(--rose);}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+/* ── CHART LEGEND ── */
+.chart-legend{display:flex;gap:1.1rem;margin-top:.6rem;}
+.chart-legend-item{display:flex;align-items:center;gap:.35rem;font-size:.7rem;color:var(--muted);}
+.chart-legend-line{display:inline-block;width:14px;height:2.5px;border-radius:2px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:transparent;} ::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
 
-@media(max-width:900px){
-  .shell{grid-template-columns:1fr;}
-  .sidebar{display:none;}
+/* ═══════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════ */
+
+/* Large tablets — sidebar gets narrow, 2-col stats */
+@media(max-width:1024px){
+  :root{ --sidebar-w: 200px; }
   .stats-grid{grid-template-columns:repeat(2,1fr);}
-  .main-grid,.bottom-grid{grid-template-columns:1fr;}
-  .main{padding:1.5rem 1rem 3rem;}
+  .main-grid{grid-template-columns:1fr 250px;}
+}
+
+/* Tablets — collapse sidebar to overlay */
+@media(max-width:768px){
+  .topbar{display:flex;}
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}
+  .main-wrap{margin-left:0;}
+  .main{padding:1.25rem 1rem 3rem;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:.7rem;}
+  .main-grid{grid-template-columns:1fr;gap:.85rem;}
+  .breakdown-card .donut-wrap{width:120px;height:120px;}
+  .bottom-grid{grid-template-columns:1fr;gap:.85rem;}
+  .page-title{font-size:1.75rem;}
+  .filter-bar{gap:.35rem;}
+  .filter-select,.search-input{font-size:.7rem;}
+}
+
+/* Phones */
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .stat-value{font-size:1.5rem;}
+  .ob-row{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .header-actions .btn-ghost{display:none;}
+  .modal{padding:1.35rem;}
+  .page-header{gap:.65rem;}
+  .page-title{font-size:1.5rem;}
 }
 </style>
 </head>
@@ -238,7 +287,11 @@ select.form-input option{background:var(--card2);}
 
 <!-- ══ APP SHELL ══ -->
 <div class="shell" id="appShell" style="display:none;">
-  <aside class="sidebar">
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
     <div class="logo">
       <div class="logo-mark">Vault</div>
       <div class="logo-sub">Finance OS</div>
@@ -275,173 +328,181 @@ select.form-input option{background:var(--card2);}
     </div>
   </aside>
 
-  <main class="main">
-
-    <!-- ══ DASHBOARD VIEW ══ -->
-    <div class="view active" id="view-dashboard">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Good <span id="timeGreet">day</span>, <span id="headerName">—</span></div>
-          <div class="page-date" id="currentDate"></div>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-ghost" onclick="exportData()">↓ Export</button>
-          <button class="btn btn-primary" onclick="openModal()">+ Add Transaction</button>
-        </div>
-      </div>
-
-      <!-- STATS -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Current Balance</div>
-          <div class="stat-value"><span class="currency" id="s-cur1"></span><span id="s-balance">0</span></div>
-          <div class="stat-change" id="s-balance-sub">Your running total</div>
-        </div>
-        <div class="stat-card teal">
-          <div class="stat-label">Total Income</div>
-          <div class="stat-value"><span class="currency" id="s-cur2"></span><span id="s-income">0</span></div>
-          <div class="stat-change up" id="s-income-sub">↑ All time</div>
-        </div>
-        <div class="stat-card rose">
-          <div class="stat-label">Total Expenses</div>
-          <div class="stat-value"><span class="currency" id="s-cur3"></span><span id="s-spend">0</span></div>
-          <div class="stat-change down" id="s-spend-sub">↓ All time</div>
-        </div>
-        <div class="stat-card neutral">
-          <div class="stat-label">Savings Rate</div>
-          <div class="stat-value"><span id="s-rate">0</span><span class="currency">%</span></div>
-          <div class="stat-change" id="s-rate-sub">Income vs expenses</div>
-        </div>
-      </div>
-
-      <!-- CHART + DONUT -->
-      <div class="main-grid">
-        <div class="chart-card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Cash Flow</div>
-              <div class="card-meta">Monthly income & expenses</div>
-            </div>
-            <div class="period-tabs">
-              <button class="period-tab active" onclick="setPeriod(this,'3m')">3M</button>
-              <button class="period-tab" onclick="setPeriod(this,'6m')">6M</button>
-              <button class="period-tab" onclick="setPeriod(this,'all')">ALL</button>
-            </div>
-          </div>
-          <div class="chart-wrap"><canvas id="spendChart"></canvas></div>
-          <div style="display:flex;gap:1.25rem;margin-top:.75rem;">
-            <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted);">
-              <span style="display:inline-block;width:14px;height:3px;background:var(--teal);border-radius:2px;"></span>Income
-            </div>
-            <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted);">
-              <span style="display:inline-block;width:14px;height:3px;background:var(--rose);border-radius:2px;"></span>Expenses
-            </div>
-          </div>
-        </div>
-        <div class="breakdown-card">
-          <div class="card-header">
-            <div class="card-title">Spending Breakdown</div>
-            <div class="card-meta">By category</div>
-          </div>
-          <div class="donut-wrap">
-            <canvas id="donutChart" width="140" height="140"></canvas>
-            <div class="donut-center">
-              <div class="donut-amount" id="donut-total">—</div>
-              <div class="donut-label">EXPENSES</div>
-            </div>
-          </div>
-          <div class="legend" id="legendList"></div>
-        </div>
-      </div>
-
-      <!-- RECENT TX + GOALS -->
-      <div class="bottom-grid">
-        <div class="tx-card">
-          <div class="card-header">
-            <div class="card-title">Recent Transactions</div>
-            <div class="card-meta" id="txCount">0 entries</div>
-          </div>
-          <div class="tx-list" id="txList"></div>
-        </div>
-        <div class="goals-card">
-          <div class="card-header">
-            <div class="card-title">Savings Goals</div>
-            <button class="btn btn-ghost" style="padding:.35rem .75rem;" onclick="openGoalModal()">+ Goal</button>
-          </div>
-          <div id="goalsList-dash"></div>
-        </div>
-      </div>
+  <div class="main-wrap">
+    <!-- Mobile top bar -->
+    <div class="topbar">
+      <div class="topbar-logo">Vault</div>
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
 
-    <!-- ══ ALL TRANSACTIONS VIEW ══ -->
-    <div class="view" id="view-transactions">
-      <div class="page-header">
-        <div>
-          <div class="page-title">All <span>Transactions</span></div>
-          <div class="page-date" id="txViewCount">Complete history</div>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="openModal()">+ Add Transaction</button>
-        </div>
-      </div>
-      <div class="all-tx-card">
-        <div class="filter-bar">
-          <input class="search-input" id="txSearch" type="text" placeholder="🔍 Search transactions…" oninput="renderAllTx()" />
-          <select class="filter-select" id="txFilterType" onchange="renderAllTx()">
-            <option value="">All Types</option>
-            <option value="credit">Income</option>
-            <option value="debit">Expense</option>
-          </select>
-          <select class="filter-select" id="txFilterCat" onchange="renderAllTx()">
-            <option value="">All Categories</option>
-          </select>
-          <select class="filter-select" id="txFilterMonth" onchange="renderAllTx()">
-            <option value="">All Months</option>
-          </select>
-        </div>
-        <div style="overflow-x:auto;">
-          <table class="tx-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Type</th>
-                <th style="text-align:right;">Amount</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="allTxBody"></tbody>
-          </table>
-        </div>
-        <div id="allTxEmpty" class="empty" style="display:none;">
-          <div class="empty-icon">📋</div>
-          <div class="empty-title">No transactions found</div>
-          <div class="empty-sub">Try adjusting your filters or add a new transaction.</div>
-        </div>
-      </div>
-    </div>
+    <main class="main">
 
-    <!-- ══ GOALS VIEW ══ -->
-    <div class="view" id="view-goals">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Savings <span>Goals</span></div>
-          <div class="page-date">Track your financial targets</div>
+      <!-- ══ DASHBOARD VIEW ══ -->
+      <div class="view active" id="view-dashboard">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Good <span id="timeGreet">day</span>, <span id="headerName">—</span></div>
+            <div class="page-date" id="currentDate"></div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-ghost" onclick="exportData()">↓ Export</button>
+            <button class="btn btn-primary" onclick="openModal()">+ Add Transaction</button>
+          </div>
         </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="openGoalModal()">+ New Goal</button>
-        </div>
-      </div>
-      <div id="goalsList-full" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;"></div>
-      <div id="goalsEmpty" class="empty" style="display:none;">
-        <div class="empty-icon">🎯</div>
-        <div class="empty-title">No goals yet</div>
-        <div class="empty-sub">Set a savings goal and track your progress toward it.</div>
-      </div>
-    </div>
 
-  </main>
+        <!-- STATS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Current Balance</div>
+            <div class="stat-value"><span class="currency" id="s-cur1"></span><span id="s-balance">0</span></div>
+            <div class="stat-change" id="s-balance-sub">Your running total</div>
+          </div>
+          <div class="stat-card teal">
+            <div class="stat-label">Total Income</div>
+            <div class="stat-value"><span class="currency" id="s-cur2"></span><span id="s-income">0</span></div>
+            <div class="stat-change up" id="s-income-sub">↑ All time</div>
+          </div>
+          <div class="stat-card rose">
+            <div class="stat-label">Total Expenses</div>
+            <div class="stat-value"><span class="currency" id="s-cur3"></span><span id="s-spend">0</span></div>
+            <div class="stat-change down" id="s-spend-sub">↓ All time</div>
+          </div>
+          <div class="stat-card neutral">
+            <div class="stat-label">Savings Rate</div>
+            <div class="stat-value"><span id="s-rate">0</span><span class="currency">%</span></div>
+            <div class="stat-change" id="s-rate-sub">Income vs expenses</div>
+          </div>
+        </div>
+
+        <!-- CHART + DONUT -->
+        <div class="main-grid">
+          <div class="chart-card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Cash Flow</div>
+                <div class="card-meta">Monthly income &amp; expenses</div>
+              </div>
+              <div class="period-tabs">
+                <button class="period-tab active" onclick="setPeriod(this,'3m')">3M</button>
+                <button class="period-tab" onclick="setPeriod(this,'6m')">6M</button>
+                <button class="period-tab" onclick="setPeriod(this,'all')">ALL</button>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="spendChart"></canvas>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><span class="chart-legend-line" style="background:var(--teal)"></span>Income</div>
+              <div class="chart-legend-item"><span class="chart-legend-line" style="background:var(--rose)"></span>Expenses</div>
+            </div>
+          </div>
+          <div class="breakdown-card">
+            <div class="card-header">
+              <div class="card-title">Spending</div>
+              <div class="card-meta">By category</div>
+            </div>
+            <div class="donut-wrap">
+              <canvas id="donutChart" width="130" height="130"></canvas>
+              <div class="donut-center">
+                <div class="donut-amount" id="donut-total">—</div>
+                <div class="donut-label">EXPENSES</div>
+              </div>
+            </div>
+            <div class="legend" id="legendList"></div>
+          </div>
+        </div>
+
+        <!-- RECENT TX + GOALS -->
+        <div class="bottom-grid">
+          <div class="tx-card">
+            <div class="card-header">
+              <div class="card-title">Recent Transactions</div>
+              <div class="card-meta" id="txCount">0 entries</div>
+            </div>
+            <div class="tx-list" id="txList"></div>
+          </div>
+          <div class="goals-card">
+            <div class="card-header">
+              <div class="card-title">Savings Goals</div>
+              <button class="btn btn-ghost" style="padding:.3rem .65rem;" onclick="openGoalModal()">+ Goal</button>
+            </div>
+            <div id="goalsList-dash"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ALL TRANSACTIONS VIEW ══ -->
+      <div class="view" id="view-transactions">
+        <div class="page-header">
+          <div>
+            <div class="page-title">All <span>Transactions</span></div>
+            <div class="page-date" id="txViewCount">Complete history</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary" onclick="openModal()">+ Add Transaction</button>
+          </div>
+        </div>
+        <div class="all-tx-card">
+          <div class="filter-bar">
+            <input class="search-input" id="txSearch" type="text" placeholder="🔍 Search…" oninput="renderAllTx()" />
+            <select class="filter-select" id="txFilterType" onchange="renderAllTx()">
+              <option value="">All Types</option>
+              <option value="credit">Income</option>
+              <option value="debit">Expense</option>
+            </select>
+            <select class="filter-select" id="txFilterCat" onchange="renderAllTx()">
+              <option value="">All Categories</option>
+            </select>
+            <select class="filter-select" id="txFilterMonth" onchange="renderAllTx()">
+              <option value="">All Months</option>
+            </select>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="tx-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th style="text-align:right;">Amount</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="allTxBody"></tbody>
+            </table>
+          </div>
+          <div id="allTxEmpty" class="empty" style="display:none;">
+            <div class="empty-icon">📋</div>
+            <div class="empty-title">No transactions found</div>
+            <div class="empty-sub">Try adjusting your filters or add a new transaction.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ GOALS VIEW ══ -->
+      <div class="view" id="view-goals">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Savings <span>Goals</span></div>
+            <div class="page-date">Track your financial targets</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary" onclick="openGoalModal()">+ New Goal</button>
+          </div>
+        </div>
+        <div id="goalsList-full" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;"></div>
+        <div id="goalsEmpty" class="empty" style="display:none;">
+          <div class="empty-icon">🎯</div>
+          <div class="empty-title">No goals yet</div>
+          <div class="empty-sub">Set a savings goal and track your progress toward it.</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
 </div>
 
 <!-- ══ ADD TRANSACTION MODAL ══ -->
@@ -469,18 +530,10 @@ select.form-input option{background:var(--card2);}
       <div class="form-group">
         <label class="form-label">Category</label>
         <select class="form-input" id="txCat">
-          <option>Housing</option>
-          <option>Food</option>
-          <option>Transport</option>
-          <option>Health</option>
-          <option>Entertainment</option>
-          <option>Shopping</option>
-          <option>Utilities</option>
-          <option>Education</option>
-          <option>Salary</option>
-          <option>Business</option>
-          <option>Investment</option>
-          <option>Other</option>
+          <option>Housing</option><option>Food</option><option>Transport</option>
+          <option>Health</option><option>Entertainment</option><option>Shopping</option>
+          <option>Utilities</option><option>Education</option><option>Salary</option>
+          <option>Business</option><option>Investment</option><option>Other</option>
         </select>
       </div>
       <div class="form-group">
@@ -524,12 +577,9 @@ select.form-input option{background:var(--card2);}
     <div class="form-group">
       <label class="form-label">Color</label>
       <select class="form-input" id="goalColor">
-        <option value="#c9a84c">Gold</option>
-        <option value="#4ccfb0">Teal</option>
-        <option value="#e05c7a">Rose</option>
-        <option value="#6b9de8">Blue</option>
-        <option value="#a78bfa">Violet</option>
-        <option value="#fb923c">Orange</option>
+        <option value="#c9a84c">Gold</option><option value="#4ccfb0">Teal</option>
+        <option value="#e05c7a">Rose</option><option value="#6b9de8">Blue</option>
+        <option value="#a78bfa">Violet</option><option value="#fb923c">Orange</option>
       </select>
     </div>
     <div class="modal-actions">
@@ -582,15 +632,30 @@ const catColors = {
 };
 
 // ══════════════════════════════════════════════════════════
+// MOBILE SIDEBAR
+// ══════════════════════════════════════════════════════════
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  const h = document.getElementById('hamburger');
+  const isOpen = s.classList.toggle('open');
+  o.classList.toggle('open', isOpen);
+  h.classList.toggle('open', isOpen);
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+// ══════════════════════════════════════════════════════════
 // ONBOARDING
 // ══════════════════════════════════════════════════════════
 function completeOnboarding() {
   const name    = document.getElementById('ob-name').value.trim();
   const symbol  = document.getElementById('ob-currency').value;
   const balance = parseFloat(document.getElementById('ob-balance').value) || 0;
-
   if (!name) { showToast('Please enter your name', true); return; }
-
   profile = { name, symbol, openingBalance: balance };
   localStorage.setItem('vault_profile', JSON.stringify(profile));
   startApp();
@@ -599,30 +664,21 @@ function completeOnboarding() {
 function startApp() {
   document.getElementById('onboarding').style.display = 'none';
   document.getElementById('appShell').style.display   = '';
-
-  // Set greeting
   const h = new Date().getHours();
-  document.getElementById('timeGreet').textContent =
-    h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
+  document.getElementById('timeGreet').textContent = h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
   document.getElementById('headerName').textContent = profile.name.split(' ')[0];
   document.getElementById('sidebarName').textContent = profile.name;
   document.getElementById('sidebarAvatar').textContent = profile.name[0].toUpperCase();
-
-  // Currency symbols everywhere
   document.querySelectorAll('.currency').forEach(el => el.textContent = profile.symbol);
-
   document.getElementById('currentDate').textContent =
     new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
   document.getElementById('txDate').valueAsDate = new Date();
-
   refreshAll();
 }
 
 function confirmReset() {
-  if (confirm('⚠️ This will delete ALL your data including transactions and goals. Are you sure?')) {
-    localStorage.clear();
-    location.reload();
+  if (confirm('⚠️ This will delete ALL your data. Are you sure?')) {
+    localStorage.clear(); location.reload();
   }
 }
 
@@ -635,13 +691,13 @@ function save() {
 }
 
 // ══════════════════════════════════════════════════════════
-// CALCULATIONS — all derived from real data
+// CALCULATIONS
 // ══════════════════════════════════════════════════════════
 function calcStats() {
-  const income  = txList.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amount,0);
-  const expenses= txList.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amount,0);
-  const balance = (profile.openingBalance || 0) + income - expenses;
-  const rate    = income > 0 ? ((income - expenses) / income * 100) : 0;
+  const income   = txList.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amount,0);
+  const expenses = txList.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amount,0);
+  const balance  = (profile.openingBalance || 0) + income - expenses;
+  const rate     = income > 0 ? ((income - expenses) / income * 100) : 0;
   return { income, expenses, balance, rate };
 }
 
@@ -650,29 +706,16 @@ function calcStats() {
 // ══════════════════════════════════════════════════════════
 function refreshAll() {
   const { income, expenses, balance, rate } = calcStats();
-  const sym = profile.symbol;
-
-  // Stat cards
   animateCount('s-balance', balance);
   animateCount('s-income',  income);
   animateCount('s-spend',   expenses);
   document.getElementById('s-rate').textContent = rate.toFixed(1);
-
   const rateEl = document.getElementById('s-rate-sub');
-  if (income === 0) {
-    rateEl.textContent = 'No income recorded yet';
-    rateEl.className = 'stat-change';
-  } else if (rate >= 0) {
-    rateEl.textContent = rate >= 20 ? '✦ Great savings rate!' : 'Try to save 20%+';
-    rateEl.className = 'stat-change ' + (rate >= 20 ? 'up' : '');
-  } else {
-    rateEl.textContent = '⚠ Spending exceeds income';
-    rateEl.className = 'stat-change down';
-  }
-
+  if (income === 0) { rateEl.textContent = 'No income recorded yet'; rateEl.className = 'stat-change'; }
+  else if (rate >= 0) { rateEl.textContent = rate >= 20 ? '✦ Great savings rate!' : 'Try to save 20%+'; rateEl.className = 'stat-change '+(rate>=20?'up':''); }
+  else { rateEl.textContent = '⚠ Spending exceeds income'; rateEl.className = 'stat-change down'; }
   document.getElementById('s-balance-sub').textContent =
-    `Opening ${sym}${fmt(profile.openingBalance||0)} + net flow`;
-
+    `Opening ${profile.symbol}${fmt(profile.openingBalance||0)} + net flow`;
   renderRecentTx();
   renderGoalsDash();
   renderGoalsFull();
@@ -686,10 +729,10 @@ function fmt(n) { return Number(n).toLocaleString(undefined,{minimumFractionDigi
 
 function animateCount(id, end) {
   const el = document.getElementById(id);
-  let start = 0, dur = 900, s;
+  let s;
   const step = (ts) => {
     if (!s) s = ts;
-    const p = Math.min((ts-s)/dur,1);
+    const p = Math.min((ts-s)/900,1);
     const e = 1 - Math.pow(1-p,3);
     el.textContent = fmt(e * end);
     if (p < 1) requestAnimationFrame(step);
@@ -698,24 +741,22 @@ function animateCount(id, end) {
 }
 
 // ══════════════════════════════════════════════════════════
-// RECENT TRANSACTIONS (dashboard)
+// RECENT TRANSACTIONS
 // ══════════════════════════════════════════════════════════
 function renderRecentTx() {
   const list   = document.getElementById('txList');
   const recent = [...txList].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
   document.getElementById('txCount').textContent = `${txList.length} total`;
-
   if (!txList.length) {
     list.innerHTML = `<div class="empty"><div class="empty-icon">💳</div><div class="empty-title">No transactions yet</div><div class="empty-sub">Add your first income or expense to get started.</div></div>`;
     return;
   }
-
   list.innerHTML = recent.map(t => `
     <div class="tx-item">
       <div class="tx-icon" style="background:${catColors[t.cat]||'#444'}22;">${catEmoji[t.cat]||'📦'}</div>
       <div class="tx-info">
         <div class="tx-name">${esc(t.desc)}</div>
-        <div class="tx-meta">${t.cat} · ${fmtDate(t.date)}${t.note ? ' · '+esc(t.note):''}</div>
+        <div class="tx-meta">${t.cat} · ${fmtDate(t.date)}${t.note?' · '+esc(t.note):''}</div>
       </div>
       <div class="tx-right">
         <div class="tx-amount ${t.type}">${t.type==='credit'?'+':'-'}${profile.symbol}${fmt(t.amount)}</div>
@@ -725,51 +766,31 @@ function renderRecentTx() {
 }
 
 // ══════════════════════════════════════════════════════════
-// ALL TRANSACTIONS (full table view)
+// ALL TRANSACTIONS TABLE
 // ══════════════════════════════════════════════════════════
 function renderAllTx() {
   const search = (document.getElementById('txSearch')?.value||'').toLowerCase();
   const fType  = document.getElementById('txFilterType')?.value||'';
   const fCat   = document.getElementById('txFilterCat')?.value||'';
   const fMonth = document.getElementById('txFilterMonth')?.value||'';
-
   let filtered = [...txList].sort((a,b)=>new Date(b.date)-new Date(a.date));
-
   if (search) filtered = filtered.filter(t=>t.desc.toLowerCase().includes(search)||t.cat.toLowerCase().includes(search)||(t.note||'').toLowerCase().includes(search));
   if (fType)  filtered = filtered.filter(t=>t.type===fType);
   if (fCat)   filtered = filtered.filter(t=>t.cat===fCat);
   if (fMonth) filtered = filtered.filter(t=>t.date.slice(0,7)===fMonth);
-
   document.getElementById('txViewCount').textContent = `${filtered.length} of ${txList.length} transactions`;
   const body  = document.getElementById('allTxBody');
   const empty = document.getElementById('allTxEmpty');
-
-  if (!filtered.length) {
-    body.innerHTML = '';
-    empty.style.display = '';
-    return;
-  }
-  empty.style.display = 'none';
-
-  body.innerHTML = filtered.map(t => `
+  if (!filtered.length) { body.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display='none';
+  body.innerHTML = filtered.map(t=>`
     <tr>
-      <td><span style="font-family:'DM Mono',monospace;font-size:.75rem;">${fmtDate(t.date)}</span></td>
-      <td>
-        <div style="font-weight:500;font-size:.82rem;">${esc(t.desc)}</div>
-        ${t.note?`<div style="font-size:.7rem;color:var(--muted);">${esc(t.note)}</div>`:''}
-      </td>
-      <td>
-        <span class="badge" style="background:${catColors[t.cat]||'#444'}22;color:${catColors[t.cat]||'#888'};">
-          ${catEmoji[t.cat]||''} ${t.cat}
-        </span>
-      </td>
+      <td><span style="font-family:'DM Mono',monospace;font-size:.73rem;">${fmtDate(t.date)}</span></td>
+      <td><div style="font-weight:500;font-size:.8rem;">${esc(t.desc)}</div>${t.note?`<div style="font-size:.68rem;color:var(--muted);">${esc(t.note)}</div>`:''}</td>
+      <td><span class="badge" style="background:${catColors[t.cat]||'#444'}22;color:${catColors[t.cat]||'#888'};">${catEmoji[t.cat]||''} ${t.cat}</span></td>
       <td><span class="badge" style="background:${t.type==='credit'?'rgba(76,207,176,.12)':'rgba(224,92,122,.12)'};color:${t.type==='credit'?'var(--teal)':'var(--rose)'};">${t.type==='credit'?'Income':'Expense'}</span></td>
-      <td style="text-align:right;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:500;" class="${t.type}">
-        ${t.type==='credit'?'+':'-'}${profile.symbol}${fmt(t.amount)}
-      </td>
-      <td style="text-align:right;">
-        <button class="btn btn-danger" onclick="deleteTx(${t.id});renderAllTx();">✕</button>
-      </td>
+      <td style="text-align:right;font-family:'DM Mono',monospace;font-size:.8rem;font-weight:500;" class="${t.type}">${t.type==='credit'?'+':'-'}${profile.symbol}${fmt(t.amount)}</td>
+      <td style="text-align:right;"><button class="btn btn-danger" onclick="deleteTx(${t.id});renderAllTx();">✕</button></td>
     </tr>`).join('');
 }
 
@@ -778,15 +799,11 @@ function updateFilterOptions() {
   const months = [...new Set(txList.map(t=>t.date.slice(0,7)))].sort().reverse();
   const catSel   = document.getElementById('txFilterCat');
   const monthSel = document.getElementById('txFilterMonth');
-  const cur1 = catSel?.value||'', cur2 = monthSel?.value||'';
-  if (catSel) catSel.innerHTML   = `<option value="">All Categories</option>` + cats.map(c=>`<option value="${c}" ${c===cur1?'selected':''}>${c}</option>`).join('');
-  if (monthSel) monthSel.innerHTML = `<option value="">All Months</option>` + months.map(m=>`<option value="${m}" ${m===cur2?'selected':''}>${monthLabel(m)}</option>`).join('');
+  const cur1=catSel?.value||'', cur2=monthSel?.value||'';
+  if (catSel)   catSel.innerHTML   = `<option value="">All Categories</option>`+cats.map(c=>`<option value="${c}"${c===cur1?' selected':''}>${c}</option>`).join('');
+  if (monthSel) monthSel.innerHTML = `<option value="">All Months</option>`+months.map(m=>`<option value="${m}"${m===cur2?' selected':''}>${monthLabel(m)}</option>`).join('');
 }
-
-function monthLabel(ym) {
-  const [y,m] = ym.split('-');
-  return new Date(y,m-1,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
-}
+function monthLabel(ym){ const[y,m]=ym.split('-'); return new Date(y,m-1,1).toLocaleDateString('en-US',{month:'long',year:'numeric'}); }
 
 // ══════════════════════════════════════════════════════════
 // DELETE
@@ -794,145 +811,150 @@ function monthLabel(ym) {
 function deleteTx(id) {
   if (!confirm('Delete this transaction?')) return;
   txList = txList.filter(t=>t.id!==id);
-  save();
-  refreshAll();
-  showToast('Transaction deleted');
+  save(); refreshAll(); showToast('Transaction deleted');
 }
 
 // ══════════════════════════════════════════════════════════
-// DONUT CHART — live from data
+// DONUT CHART
 // ══════════════════════════════════════════════════════════
 function drawDonut() {
   const cats = {};
   txList.filter(t=>t.type==='debit').forEach(t=>{ cats[t.cat]=(cats[t.cat]||0)+t.amount; });
   const sorted = Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,6);
   const total  = sorted.reduce((s,[,v])=>s+v,0);
-
-  document.getElementById('donut-total').textContent =
-    total ? profile.symbol+fmt(total) : '—';
-
+  document.getElementById('donut-total').textContent = total ? profile.symbol+fmt(total) : '—';
   const canvas = document.getElementById('donutChart');
   const ctx = canvas.getContext('2d');
-  const cx=70,cy=70,r=55,inner=38;
-  ctx.clearRect(0,0,140,140);
-
+  const cx=65,cy=65,r=52,inner=35;
+  ctx.clearRect(0,0,130,130);
   if (!sorted.length) {
-    ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI);
-    ctx.fillStyle='#1e2d3d'; ctx.fill();
-    ctx.beginPath(); ctx.arc(cx,cy,inner,0,2*Math.PI);
-    ctx.fillStyle='#141d26'; ctx.fill();
-    document.getElementById('legendList').innerHTML='<div style="text-align:center;font-size:.75rem;color:var(--muted);padding:.5rem 0;">No expenses yet</div>';
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.fillStyle='#1e2d3d'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx,cy,inner,0,2*Math.PI); ctx.fillStyle='#141d26'; ctx.fill();
+    document.getElementById('legendList').innerHTML='<div style="text-align:center;font-size:.73rem;color:var(--muted);padding:.5rem 0;">No expenses yet</div>';
     return;
   }
-
   let angle=-Math.PI/2;
   sorted.forEach(([cat,val])=>{
     const slice=(val/total)*2*Math.PI;
-    ctx.beginPath(); ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,r,angle,angle+slice); ctx.closePath();
-    ctx.fillStyle=catColors[cat]||'#444'; ctx.fill();
-    angle+=slice;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,angle,angle+slice); ctx.closePath();
+    ctx.fillStyle=catColors[cat]||'#444'; ctx.fill(); angle+=slice;
   });
-  ctx.beginPath(); ctx.arc(cx,cy,inner,0,2*Math.PI);
-  ctx.fillStyle='#141d26'; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx,cy,inner,0,2*Math.PI); ctx.fillStyle='#141d26'; ctx.fill();
   angle=-Math.PI/2;
   sorted.forEach(([,val])=>{
     const slice=(val/total)*2*Math.PI;
-    ctx.beginPath(); ctx.moveTo(cx,cy);
-    ctx.lineTo(cx+r*Math.cos(angle),cy+r*Math.sin(angle));
-    ctx.strokeStyle='#141d26'; ctx.lineWidth=2; ctx.stroke();
-    angle+=slice;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+r*Math.cos(angle),cy+r*Math.sin(angle));
+    ctx.strokeStyle='#141d26'; ctx.lineWidth=2; ctx.stroke(); angle+=slice;
   });
-
   document.getElementById('legendList').innerHTML=sorted.map(([cat,val])=>`
     <div class="legend-item">
-      <div class="legend-left">
-        <div class="legend-dot" style="background:${catColors[cat]||'#444'}"></div>
-        <div>${cat}</div>
-      </div>
+      <div class="legend-left"><div class="legend-dot" style="background:${catColors[cat]||'#444'}"></div><div>${cat}</div></div>
       <div class="legend-val">${profile.symbol}${fmt(val)}</div>
     </div>`).join('');
 }
 
 // ══════════════════════════════════════════════════════════
-// LINE CHART — built from real transactions grouped by month
+// LINE CHART — properly bounded to its container
 // ══════════════════════════════════════════════════════════
 let chartAnimFrame;
 
 function getMonthlyData(nMonths) {
-  const now    = new Date();
+  const now = new Date();
   const months = [];
-  for (let i = nMonths-1; i >= 0; i--) {
+  for (let i=nMonths-1; i>=0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
-    months.push({ key: `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`, label: d.toLocaleDateString('en-US',{month:'short'}) });
+    months.push({ key:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`, label:d.toLocaleDateString('en-US',{month:'short'}) });
   }
-  const income  = months.map(m=>txList.filter(t=>t.type==='credit'&&t.date.slice(0,7)===m.key).reduce((s,t)=>s+t.amount,0));
-  const expenses= months.map(m=>txList.filter(t=>t.type==='debit' &&t.date.slice(0,7)===m.key).reduce((s,t)=>s+t.amount,0));
-  return { labels: months.map(m=>m.label), income, expenses };
+  const income   = months.map(m=>txList.filter(t=>t.type==='credit'&&t.date.slice(0,7)===m.key).reduce((s,t)=>s+t.amount,0));
+  const expenses = months.map(m=>txList.filter(t=>t.type==='debit' &&t.date.slice(0,7)===m.key).reduce((s,t)=>s+t.amount,0));
+  return { labels:months.map(m=>m.label), income, expenses };
 }
 
 function drawLineChart(period) {
   const canvas = document.getElementById('spendChart');
   if (!canvas) return;
-  const W=canvas.offsetWidth||600, H=200;
-  canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
-  const ctx=canvas.getContext('2d');
-  ctx.scale(devicePixelRatio,devicePixelRatio);
+
+  // Use the container's dimensions, not canvas's own
+  const wrap = canvas.parentElement;
+  const W = wrap.clientWidth  || 400;
+  const H = wrap.clientHeight || 180;
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
 
   const nMonths = period==='3m'?3:period==='6m'?6:12;
   const { labels, income, expenses } = getMonthlyData(nMonths);
-  const pad={top:20,right:20,bottom:30,left:56};
-  const cW=W-pad.left-pad.right, cH=H-pad.top-pad.bottom;
-  const maxVal=Math.max(...income,...expenses,1)*1.15;
-  const xStep=labels.length>1?cW/(labels.length-1):cW;
 
-  function xPos(i){ return pad.left+(labels.length>1?i*xStep:cW/2); }
-  function yPos(v){ return pad.top+cH-(v/maxVal)*cH; }
+  const pad = { top:14, right:14, bottom:28, left:52 };
+  const cW = W - pad.left - pad.right;
+  const cH = H - pad.top  - pad.bottom;
+  const maxVal = Math.max(...income, ...expenses, 1) * 1.2;
+  const n = labels.length;
+
+  function xPos(i){ return pad.left + (n > 1 ? (i/(n-1))*cW : cW/2); }
+  function yPos(v){ return pad.top + cH - (v/maxVal)*cH; }
 
   cancelAnimationFrame(chartAnimFrame);
   let startTs;
 
   function animate(ts) {
-    if(!startTs)startTs=ts;
-    const progress=Math.min((ts-startTs)/900,1);
-    ctx.clearRect(0,0,W,H);
+    if (!startTs) startTs=ts;
+    const progress = Math.min((ts-startTs)/900, 1);
+    ctx.clearRect(0, 0, W, H);
 
-    // Grid
-    [.25,.5,.75,1].forEach(f=>{
-      const y=pad.top+cH*(1-f);
-      ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(W-pad.right,y);
+    // Grid lines
+    [0.25, 0.5, 0.75, 1].forEach(f => {
+      const y = pad.top + cH*(1-f);
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W-pad.right, y);
       ctx.strokeStyle='rgba(255,255,255,.04)'; ctx.lineWidth=1; ctx.stroke();
-      ctx.fillStyle='#6b7a8d'; ctx.font='9px DM Mono,monospace'; ctx.textAlign='right';
-      const val=f*maxVal;
-      ctx.fillText((val>=1000?(val/1000).toFixed(0)+'k':val.toFixed(0)), pad.left-6, y+3);
+      const val = f*maxVal;
+      const label = val>=1000000 ? (val/1000000).toFixed(1)+'M' : val>=1000 ? (val/1000).toFixed(0)+'k' : val.toFixed(0);
+      ctx.fillStyle='#6b7a8d'; ctx.font=`9px 'DM Mono',monospace`; ctx.textAlign='right';
+      ctx.fillText(label, pad.left-6, y+3);
     });
-    labels.forEach((l,i)=>{ ctx.fillStyle='#6b7a8d'; ctx.textAlign='center'; ctx.fillText(l,xPos(i),H-8); });
 
-    function drawLine(data,color) {
-      const pts=data.length;
-      const visible=Math.max(1,Math.floor(pts*progress));
-      const grad=ctx.createLinearGradient(0,pad.top,0,pad.top+cH);
-      grad.addColorStop(0,color+'28'); grad.addColorStop(1,color+'00');
-      ctx.beginPath(); ctx.moveTo(xPos(0),yPos(data[0]));
-      for(let i=1;i<visible;i++) ctx.lineTo(xPos(i),yPos(data[i]));
-      ctx.lineTo(xPos(visible-1),pad.top+cH); ctx.lineTo(xPos(0),pad.top+cH);
+    // X-axis labels
+    labels.forEach((l,i) => {
+      ctx.fillStyle='#6b7a8d'; ctx.textAlign='center'; ctx.font=`9px 'DM Mono',monospace`;
+      ctx.fillText(l, xPos(i), H-pad.bottom+14);
+    });
+
+    function drawLine(data, color) {
+      const visible = Math.max(1, Math.floor(n * progress));
+      // Fill area
+      const grad = ctx.createLinearGradient(0,pad.top,0,pad.top+cH);
+      grad.addColorStop(0, color+'28'); grad.addColorStop(1, color+'00');
+      ctx.beginPath();
+      ctx.moveTo(xPos(0), yPos(data[0]));
+      for (let i=1; i<visible; i++) ctx.lineTo(xPos(i), yPos(data[i]));
+      ctx.lineTo(xPos(visible-1), pad.top+cH);
+      ctx.lineTo(xPos(0), pad.top+cH);
       ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
-      ctx.beginPath(); ctx.moveTo(xPos(0),yPos(data[0]));
-      for(let i=1;i<visible;i++) ctx.lineTo(xPos(i),yPos(data[i]));
+      // Line
+      ctx.beginPath();
+      ctx.moveTo(xPos(0), yPos(data[0]));
+      for (let i=1; i<visible; i++) ctx.lineTo(xPos(i), yPos(data[i]));
       ctx.strokeStyle=color; ctx.lineWidth=2; ctx.lineJoin='round'; ctx.stroke();
-      for(let i=0;i<visible;i++){
-        ctx.beginPath(); ctx.arc(xPos(i),yPos(data[i]),3.5,0,Math.PI*2);
+      // Dots
+      for (let i=0; i<visible; i++) {
+        ctx.beginPath(); ctx.arc(xPos(i), yPos(data[i]), 3.5, 0, Math.PI*2);
         ctx.fillStyle=color; ctx.fill();
-        ctx.beginPath(); ctx.arc(xPos(i),yPos(data[i]),2,0,Math.PI*2);
+        ctx.beginPath(); ctx.arc(xPos(i), yPos(data[i]), 1.8, 0, Math.PI*2);
         ctx.fillStyle='#0e1318'; ctx.fill();
       }
     }
 
-    drawLine(income,'#4ccfb0');
-    drawLine(expenses,'#e05c7a');
-    if(progress<1) chartAnimFrame=requestAnimationFrame(animate);
+    drawLine(income,   '#4ccfb0');
+    drawLine(expenses, '#e05c7a');
+    if (progress < 1) chartAnimFrame = requestAnimationFrame(animate);
   }
-  chartAnimFrame=requestAnimationFrame(animate);
+  chartAnimFrame = requestAnimationFrame(animate);
 }
 
 // ══════════════════════════════════════════════════════════
@@ -944,10 +966,7 @@ function renderGoalsDash() {
     container.innerHTML=`<div class="empty"><div class="empty-icon">🎯</div><div class="empty-title">No goals yet</div><div class="empty-sub">Click "+ Goal" to create one.</div></div>`;
     return;
   }
-  container.innerHTML=goals.map((g,i)=>{
-    const pct=Math.min(Math.round((g.saved/g.target)*100),100);
-    return goalHTML(g,i,pct);
-  }).join('');
+  container.innerHTML=goals.map((g,i)=>{ const pct=Math.min(Math.round((g.saved/g.target)*100),100); return goalHTML(g,i,pct); }).join('');
   setTimeout(()=>{ document.querySelectorAll('.progress-fill').forEach(el=>{ el.style.width=el.dataset.w; }); },100);
 }
 
@@ -956,16 +975,13 @@ function renderGoalsFull() {
   const empty     = document.getElementById('goalsEmpty');
   if (!goals.length) { container.innerHTML=''; empty.style.display=''; return; }
   empty.style.display='none';
-  container.innerHTML=goals.map((g,i)=>{
-    const pct=Math.min(Math.round((g.saved/g.target)*100),100);
-    return `<div class="chart-card" style="animation-delay:${i*.05}s;">` + goalHTML(g,i,pct) + `</div>`;
-  }).join('');
+  container.innerHTML=goals.map((g,i)=>{ const pct=Math.min(Math.round((g.saved/g.target)*100),100); return `<div class="chart-card" style="animation-delay:${i*.05}s;">`+goalHTML(g,i,pct)+`</div>`; }).join('');
   setTimeout(()=>{ document.querySelectorAll('.progress-fill').forEach(el=>{ el.style.width=el.dataset.w; }); },100);
 }
 
 function goalHTML(g,i,pct) {
-  const remaining = Math.max(g.target-g.saved,0);
-  const dateStr   = g.targetDate?` · Due ${fmtDate(g.targetDate)}`:'';
+  const remaining=Math.max(g.target-g.saved,0);
+  const dateStr=g.targetDate?` · Due ${fmtDate(g.targetDate)}`:'';
   return `
     <div class="goal-item">
       <div class="goal-header">
@@ -975,7 +991,7 @@ function goalHTML(g,i,pct) {
       <div class="progress-track"><div class="progress-fill" style="width:0%;background:${g.color};" data-w="${pct}%"></div></div>
       <div class="goal-sub">
         <span>${profile.symbol}${fmt(g.saved)} saved</span>
-        <span>${profile.symbol}${fmt(remaining)} to go · ${profile.symbol}${fmt(g.target)} goal</span>
+        <span>${profile.symbol}${fmt(remaining)} to go</span>
       </div>
       <div class="goal-actions">
         <button class="goal-mini-btn" onclick="openDepositModal(${i})">+ Deposit</button>
@@ -1000,17 +1016,12 @@ function addTransaction() {
   const cat    = document.getElementById('txCat').value;
   const date   = document.getElementById('txDate').value;
   const note   = document.getElementById('txNote').value.trim();
-
-  if (!amount || amount<=0) { showToast('Enter a valid amount', true); return; }
-  if (!desc)                { showToast('Add a description', true); return; }
-  if (!date)                { showToast('Select a date', true); return; }
-
+  if (!amount||amount<=0) { showToast('Enter a valid amount', true); return; }
+  if (!desc)              { showToast('Add a description', true); return; }
+  if (!date)              { showToast('Select a date', true); return; }
   txList.push({ id:Date.now(), type, amount, desc, cat, date, note });
-  save();
-  closeModal();
-  refreshAll();
+  save(); closeModal(); refreshAll();
   showToast(`${type==='credit'?'Income':'Expense'} of ${profile.symbol}${fmt(amount)} added`);
-
   document.getElementById('txAmount').value='';
   document.getElementById('txDesc').value='';
   document.getElementById('txNote').value='';
@@ -1025,11 +1036,9 @@ function addGoal() {
   const saved  = parseFloat(document.getElementById('goalSaved').value)||0;
   const color  = document.getElementById('goalColor').value;
   const tDate  = document.getElementById('goalDate').value;
-
-  if (!name)           { showToast('Goal needs a name', true); return; }
+  if (!name)            { showToast('Goal needs a name', true); return; }
   if (!target||target<=0){ showToast('Enter a valid target', true); return; }
-  if (saved>target)    { showToast('Saved amount exceeds target', true); return; }
-
+  if (saved>target)     { showToast('Saved amount exceeds target', true); return; }
   goals.push({ name, target, saved, color, targetDate:tDate||null });
   save(); closeGoalModal(); renderGoalsDash(); renderGoalsFull();
   showToast('Goal created!');
@@ -1047,10 +1056,9 @@ function openDepositModal(i) {
 }
 function closeDepositModal(){ document.getElementById('depositModal').classList.remove('open'); }
 function closeDepositCheck(e){ if(e.target===document.getElementById('depositModal')) closeDepositModal(); }
-
 function depositToGoal() {
   const amt=parseFloat(document.getElementById('depositAmount').value);
-  if (!amt||amt<=0){ showToast('Enter a valid amount', true); return; }
+  if (!amt||amt<=0) { showToast('Enter a valid amount', true); return; }
   const g=goals[depositGoalIdx];
   g.saved=Math.min(g.saved+amt,g.target);
   save(); closeDepositModal(); renderGoalsDash(); renderGoalsFull();
@@ -1100,9 +1108,10 @@ function showView(name, el) {
   document.getElementById('view-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   if (el) el.classList.add('active');
+  closeSidebar();
   if (name==='transactions') renderAllTx();
-  if (name==='goals') { renderGoalsFull(); }
-  if (name==='dashboard') { drawLineChart(currentPeriod); drawDonut(); }
+  if (name==='goals') renderGoalsFull();
+  if (name==='dashboard') { requestAnimationFrame(()=>{ drawLineChart(currentPeriod); drawDonut(); }); }
 }
 
 function setPeriod(el, p) {
@@ -1112,13 +1121,17 @@ function setPeriod(el, p) {
   drawLineChart(p);
 }
 
-window.addEventListener('resize', ()=>drawLineChart(currentPeriod));
+// Redraw chart on resize after layout settles
+let resizeTimer;
+window.addEventListener('resize', ()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(()=>drawLineChart(currentPeriod), 150);
+});
 
 // ══════════════════════════════════════════════════════════
 // BOOT
 // ══════════════════════════════════════════════════════════
 if (profile) { startApp(); }
-// else: onboarding is shown (default)
 </script>
 </body>
 </html>
